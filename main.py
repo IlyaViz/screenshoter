@@ -37,17 +37,18 @@ def get_screenshot(autosave=False):
                                 second_point[1]-first_point[1]])
         
         if keyboard.is_pressed('/'):
+            if autosave:
+                filename = str(COUNT)
+                COUNT += 1
+            else:
+                filename = input('Filename\n')
+
+            print(f'Trying to save to {PATH}{filename}.png')
             try:
-                if autosave:
-                    filename = str(COUNT)
-                    COUNT += 1
-                else:
-                    filename = input('Filename\n')
-                print(f'Trying to save to {PATH}{filename}.png')
                 img.save(PATH + filename + '.png')
-                time.sleep(1)
             except:
                 print('error while saving')
+            time.sleep(1)
 
 def main():
     global PATH
