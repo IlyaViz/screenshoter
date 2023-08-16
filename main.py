@@ -3,11 +3,10 @@ import os
 import keyboard
 import cv2
 import numpy
-import sys
 import threading
 import time
 
-def get_screenshot(autosave=False):
+def get_screenshot(path, autosave=False):
     COUNT = 0
 
     def show_current_area_of_screenshot():
@@ -42,21 +41,17 @@ def get_screenshot(autosave=False):
                 COUNT += 1
             else:
                 filename = input('Filename\n')
+            
+            file_path = os.path.join(path, filename+'.png')
 
-            print(f'Trying to save to {PATH}{filename}.png')
+            print(f'Trying to save to {file_path}')
             try:
-                img.save(PATH + filename + '.png')
+                img.save(file_path)
             except:
                 print('error while saving')
             time.sleep(1)
-
-def main():
-    global PATH
-    PATH = input("Path to directory e.g\n")
-    PATH = PATH if PATH[-1] in ['/', '\\'] else PATH + '/'
-    autosave = input("autosave? <y>, <n>")
-    autosave = True if autosave == 'y' else False
-    get_screenshot(autosave)
  
 if __name__ == '__main__':
-    main()
+    path = input("Path to directory e.g\n")
+    autosave = True if input("autosave? <y>, <n>") == 'y' else False
+    get_screenshot(path, autosave)
